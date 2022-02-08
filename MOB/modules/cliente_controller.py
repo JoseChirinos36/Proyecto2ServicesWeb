@@ -12,7 +12,10 @@ client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((IP,PORT))
 client_socket.setblocking(False)
 
+header_msg = "cliente"
+
 def crear():
+    
     objetos = ET.Element("objetos")
     objeto = ET.SubElement(objetos,"objeto")
     obj_fecha = ET.SubElement(objeto,"fecha")
@@ -55,10 +58,10 @@ def consultar():
 
 def replicar():
     print("prueba")
-    client_socket.send("Replicar".encode("utf-8")) 
+    client_socket.send(header_msg + "Replicar".encode("utf-8")) 
 
 def restaurar():
-    client_socket.send("Restaurar".encode("utf-8")) 
+    client_socket.send(header_msg + "Restaurar".encode("utf-8")) 
     print("prueba restaurar")
 
   
