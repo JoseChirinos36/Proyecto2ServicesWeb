@@ -2,8 +2,6 @@ import sys
 from modules.cliente_controller import * 
 option = ''
 
-def replicar():
-    print("POR HACER")
 
 while(option !='6'):
     print("Inicio\n ")

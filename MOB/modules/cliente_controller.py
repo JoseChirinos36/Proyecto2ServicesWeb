@@ -15,7 +15,7 @@ client_socket.setblocking(False)
 header_msg = "cliente"
 
 def crear():
-    
+
     objetos = ET.Element("objetos")
     objeto = ET.SubElement(objetos,"objeto")
     obj_fecha = ET.SubElement(objeto,"fecha")
@@ -57,9 +57,10 @@ def consultar():
         print(f"Fecha: {fecha} - Nombre: {nombre} - Accion: {accion} ")
 
 def replicar():
-    print("prueba")
-    client_socket.send(header_msg + "Replicar".encode("utf-8")) 
-
+    print("Mensaje enviado \n")
+    message = "Replicar"
+    client_socket.send(message.encode("utf-8"))
+   
 def restaurar():
     client_socket.send(header_msg + "Restaurar".encode("utf-8")) 
     print("prueba restaurar")
