@@ -1,13 +1,6 @@
 import sys
-from middleware.cliente_controller import * 
-import socket
-
-IP = "127.0.0.1"
-PORT = 1236
+from modules.cliente_controller import * 
 option = ''
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect((IP,PORT))
-client_socket.setblocking(False)
 
 def replicar():
     print("POR HACER")
@@ -32,8 +25,8 @@ while(option !='6'):
     elif(option== '4'):
         replicar()
     elif(option== '5'):
-        client_socket.send("Restaurar".encode("utf-8"))   
+       print("Restaurar, por hacer")
     elif(option== '6'):
-        client_socket.send("exit".encode("utf-8"))
+        print("Saliendo del programa")
         sys.exit()
 

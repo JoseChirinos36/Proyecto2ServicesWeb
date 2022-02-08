@@ -1,7 +1,16 @@
 import sys
 import xml.etree.ElementTree as ET
+import socket
+
 mytree = ET.parse('C:\\Users\\DELL PC\\Documents\\Proyecto2\\Proyecto2ServicesWeb\\MOB\\bd.xml')
 myroot = mytree.getroot()
+
+IP = "127.0.0.1"
+PORT = 1236
+
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect((IP,PORT))
+client_socket.setblocking(False)
 
 def crear():
     objetos = ET.Element("objetos")
@@ -43,6 +52,13 @@ def consultar():
         accion = x.find('accion').text
        
         print(f"Fecha: {fecha} - Nombre: {nombre} - Accion: {accion} ")
-        
-        
-        
+
+def replicar():
+    print("prueba")
+    client_socket.send("Replicar".encode("utf-8")) 
+
+def restaurar():
+    client_socket.send("Restaurar".encode("utf-8")) 
+    print("prueba restaurar")
+
+  
