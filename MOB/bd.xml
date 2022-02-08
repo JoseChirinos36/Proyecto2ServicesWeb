@@ -1,0 +1,12 @@
+<objetos>
+    <objeto>
+    <fecha> 11/01/2021</fecha>
+    <nombre> prueba</nombre>
+    <accion> commit</accion>
+    </objeto>
+    <objeto>
+    <fecha> 15/01/2021</fecha>
+    <nombre> consulta xml</nombre>
+    <accion> abort</accion>
+    </objeto>    
+<objeto><fecha>07/02/2022</fecha><nombre>prueba guardado</nombre><accion>commit</accion></objeto><objeto><fecha>08/02/2022</fecha><nombre>prueba 2 guardar</nombre><accion>commit</accion></objeto><objeto><fecha>01/02/2022</fecha><nombre>guardar texto</nombre><accion>commit</accion></objeto><objeto><fecha>05/02/2022</fecha><nombre>pruevanumber3</nombre><accion>commit</accion></objeto><objeto><fecha>09/02/2022</fecha><nombre>prueba de guardado</nombre><accion>abort</accion></objeto></objetos>
