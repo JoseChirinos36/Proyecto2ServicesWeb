@@ -32,7 +32,7 @@ def crear():
 
             msg2 = input("Ingrese accion: ")
             obj_accion.text = str(msg2)
-            
+            #client_socket.send(bytes(msg.encode('utf-8')))
             msg3 = input("Ingrese salir: ")
             myroot.append(objeto)
             mytree.write('C:\\Users\\DELL PC\\Documents\\Proyecto2\\Proyecto2ServicesWeb\\MOB\\bd.xml')

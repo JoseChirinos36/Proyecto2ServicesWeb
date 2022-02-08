@@ -1,4 +1,5 @@
 from datetime import datetime
+from http import server
 import socket
 import sys
 
@@ -11,7 +12,7 @@ server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,1)
 
 server_socket.bind((IP,PORT))
 print("Servidor iniciado!")
-server_socket.listen()
+server_socket.listen(6)
 
 socket_list = [server_socket]
 clients = {}
@@ -20,10 +21,12 @@ fechaActual = datetime.now()
 
 def Restaurar():
         print("Restaurar, llamando al servidor de replicacion")
+        client_socket.close()
      
 
 def replicar(mensaje):
-    print("replicar", mensaje)
+    print(mensaje)
+    client_socket.close()
    
 
 while True:
@@ -42,11 +45,9 @@ while True:
         print("Llamar al servidor replicacion")
         Restaurar()
     
-    if msg.decode("utf-8") == "Replicar":
+    if msg.decode("utf-8") == "commit":
         print("replicacion")
         replicar(msg.decode("utf-8"))
-
+    else:
+        print("no se replica el objeto")
     
-
-
-
