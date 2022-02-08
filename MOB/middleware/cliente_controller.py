@@ -1,6 +1,6 @@
 import sys
 import xml.etree.ElementTree as ET
-mytree = ET.parse('C:\\Users\\DELL PC\\Documents\\Pruebapython\\Proyecto\\bd.xml')
+mytree = ET.parse('C:\\Users\\DELL PC\\Documents\\Proyecto2\\Proyecto2ServicesWeb\\MOB\\bd.xml')
 myroot = mytree.getroot()
 
 def crear():
@@ -23,7 +23,7 @@ def crear():
             
             msg3 = input("Ingrese salir: ")
             myroot.append(objeto)
-            mytree.write('C:\\Users\\DELL PC\\Documents\\Pruebapython\\Proyecto\\bd.xml')
+            mytree.write('C:\\Users\\DELL PC\\Documents\\Proyecto2\\Proyecto2ServicesWeb\\MOB\\bd.xml')
             print("Se ha creado la informacion \n")
             if msg3 == "salir":
                 sys.exit()
@@ -32,7 +32,7 @@ def eliminar():
     for x in myroot.findall('objeto'):
         x.remove()
         
-        mytree.write('C:\\Users\\DELL PC\\Documents\\Pruebapython\\Proyecto\\bd.xml')
+        mytree.write('C:\\Users\\DELL PC\\Documents\\Proyecto2\\Proyecto2ServicesWeb\\MOB\\bd.xml')
         print("Se ha eliminado toda la informacion")
 
 
@@ -41,7 +41,7 @@ def consultar():
         fecha = x.find('fecha').text
         nombre =  x.find('nombre').text
         accion = x.find('accion').text
-        #print(fecha,'-' ,nombre,'-', accion, '\n')
+       
         print(f"Fecha: {fecha} - Nombre: {nombre} - Accion: {accion} ")
         
         
