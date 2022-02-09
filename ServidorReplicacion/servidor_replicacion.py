@@ -13,7 +13,8 @@ except socket.error as e:
     print(str(e))
 
 Response = replicaSocket.recv(1024)
-while True:
+print(Response.decode('utf-8'))
+while True:   
     msg = input('Say something: ')
     replicaSocket.send(msg.encode('utf-8'))
     Response = replicaSocket.recv(1024)
@@ -22,5 +23,3 @@ while True:
     if msg == 'exit':
         replicaSocket.close()
         sys.exit()
-
-    replicaSocket.close()
