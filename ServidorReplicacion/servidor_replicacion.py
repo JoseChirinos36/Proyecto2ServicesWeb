@@ -3,7 +3,7 @@ import sys
 from xmlrpc.client import ResponseError
 
 replicaSocket = socket.socket()
-host = '127.0.0.1'
+host = '127.0.0.1' #192.168.1.118 (si se conecta con el server en una maquina virtual)
 port = 1233
 
 print("Esperando conexion")
