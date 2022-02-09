@@ -1,25 +1,26 @@
-from ast import While
 import socket
+import sys
+from xmlrpc.client import ResponseError
 
-IP = "127.0.0.1"
-PORT = 1236
+replicaSocket = socket.socket()
+host = '127.0.0.1'
+port = 1233
 
-header_server ="serveRep"
-server_replicar = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_replicar.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,1)
-server_replicar.connect((IP,PORT))
-server_replicar.setblocking(False)
+print("Esperando conexion")
+try:
+    replicaSocket.connect((host,port))
+except socket.error as e:
+    print(str(e))
 
-
-def replicar():
-    print("guardar objeto")
-
-def restaurar():
-    print("enviar objeto guardado")
-
+Response = replicaSocket.recv(1024)
 while True:
-#    msg = server_replicar.recv(20)
-    print("Replicar")
+    msg = input('Say something: ')
+    replicaSocket.send(msg.encode('utf-8'))
+    Response = replicaSocket.recv(1024)
+    print(Response.decode('utf-8'))
 
-    replicar()
-    
+    if msg == 'exit':
+        replicaSocket.close()
+        sys.exit()
+
+    replicaSocket.close()
