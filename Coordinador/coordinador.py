@@ -1,7 +1,7 @@
 import socket
 import sys
-host = '127.0.0.1'
-port = 12033
+host0 = '127.0.0.1'
+port0 = 12036
 BUFFERSIZE = 1024
 
 def conexion1(msg,BUFFERSIZE):
@@ -17,25 +17,44 @@ def conexion1(msg,BUFFERSIZE):
             
             return data_1.decode('utf-8')
 
+def conexion2(msg):
+    host2 = '127.0.0.1'
+    port2 = 12033
+    with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as socket2:
+        socket2.connect((host2,port2)) #probando conexion de forma local como un socket2
+        
+        while True:
+            #msg recibe la informacion del server
+           
+            if msg == 'commit':
+                socket2.send(msg.encode('utf-8'))
+                
+            if msg == 'abort':
+                socket2.send(msg.encode('utf-8'))                
+            
+            if msg == 'exit':
+                socket2.close()
+                sys.exit()
+            
+            data2 = socket2.recv(BUFFERSIZE)
+
+            print(data2.decode("utf-8"))
+
 
 with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as socket0:
-    socket0.connect((host,port)) #probando conexion de forma local como un socket2
-    
+    socket0.bind((host0,port0))
+    socket0.listen(6)
+
+    client, adr = socket0.accept()
+
+    print("Inicio Servidor..") 
     while True:
-        #En este input, es como decir que el commit proviene del Servidor de Aplicacion
-        msg = input("ingresar palabra(commit, abort, azar) ")
-        if msg == 'commit':
-            socket0.send(msg.encode('utf-8'))
-            #conexion1(msg,BUFFERSIZE)
-        if msg == 'abort':
-            socket0.send(msg.encode('utf-8'))                
-        
-        if msg == 'exit':
-            socket0.close()
-            sys.exit()
-        
-        data0 = socket0.recv(BUFFERSIZE)
+        print(f"Conexion establecida - {adr}")
 
-        print(data0.decode("utf-8"))
-        
+        data_0 = client.recv(BUFFERSIZE)
+        print(data_0.decode("utf-8"))
+        if data_0.decode("utf-8")=='commit':
+            conexion2(data_0) #llamando al Servidor_Replicacion
+        msg0 = "Soy el coordinador"
 
+        client.send(msg0.encode('utf-8'))
