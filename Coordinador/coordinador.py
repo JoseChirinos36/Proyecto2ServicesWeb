@@ -23,22 +23,21 @@ def conexion2(msg):
     with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as socket2:
         socket2.connect((host2,port2)) #probando conexion de forma local como un socket2
         
-        while True:
+       # while True:
             #msg recibe la informacion del server
            
-            if msg == 'commit':
-                socket2.send(msg.encode('utf-8'))
-                
-            if msg == 'abort':
-                socket2.send(msg.encode('utf-8'))                
+        if msg == 'commit':
+            socket2.send(msg.encode('utf-8'))
             
-            if msg == 'exit':
-                socket2.close()
-                sys.exit()
-            
-            data2 = socket2.recv(BUFFERSIZE)
-
-            print(data2.decode("utf-8"))
+        if msg == 'abort':
+            socket2.send(msg.encode('utf-8'))                
+        
+        if msg == 'exit':
+            socket2.close()
+            sys.exit()
+        
+        data2 = socket2.recv(BUFFERSIZE)
+        print(data2.decode("utf-8"))
 
 
 with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as socket0:
@@ -48,13 +47,13 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as socket0:
     client, adr = socket0.accept()
 
     print("Inicio Servidor..") 
-    while True:
-        print(f"Conexion establecida - {adr}")
+#    while True:
+    print(f"Conexion establecida - {adr}")
 
-        data_0 = client.recv(BUFFERSIZE)
-        print(data_0.decode("utf-8"))
-        if data_0.decode("utf-8")=='commit':
-            conexion2(data_0) #llamando al Servidor_Replicacion
-        msg0 = "Soy el coordinador"
+    data_0 = client.recv(BUFFERSIZE)
+    print(data_0.decode("utf-8"))
+    if data_0.decode("utf-8")=='commit':
+        conexion2(data_0.decode('utf-8')) #llamando al Servidor_Replicacion
+    msg0 = "Soy el coordinador"
 
-        client.send(msg0.encode('utf-8'))
+    client.send(msg0.encode('utf-8'))

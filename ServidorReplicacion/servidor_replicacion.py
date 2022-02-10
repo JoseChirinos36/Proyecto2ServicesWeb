@@ -15,28 +15,27 @@ coor, adr = socket0.accept()
 def replicarObjeto():
     print("replicar")
 
-while True:
-    print(f"Conexion establecida por: {adr}")
-    data0 = coor.recv(BUFFERSIZE)
-    print(data0.decode('utf-8'))
 
-    if data0.decode('utf-8') == 'commit':
-        print("Preparandose para replicar") #Deberia llamar a un metodo para hacer el proceso
-        msg = "VOTE_COMMIT"
-        coor.send(msg.encode('utf-8'))
+print(f"Conexion establecida por: {adr}")
+data0 = coor.recv(BUFFERSIZE)
+print(data0.decode('utf-8'))
 
-    if data0.decode('utf-8') == 'abort':
-        print("Enviar mensaje de rechazar objeto") #envia el abort 
-        msg = "VOTE_ABORT"
-        coor.send(msg.encode('utf-8'))
-
-    #Como dice aqui es para salir del server
-    if data0.decode('utf-8')== 'salir':
-        coor.close()
-        sys.exit()
-
-    msg = "hola desde win10, fisica, server"
+if data0.decode('utf-8') == 'commit':
+    print("Preparandose para replicar") #Deberia llamar a un metodo para hacer el proceso
+    msg = "VOTE_COMMIT"
     coor.send(msg.encode('utf-8'))
+    
+if data0.decode('utf-8') == 'abort':
+    print("Enviar mensaje de rechazar objeto") #envia el abort 
+    msg = "VOTE_ABORT"
+    coor.send(msg.encode('utf-8'))
+
+#Como dice aqui es para salir del server
+if data0.decode('utf-8')== 'salir':
+    coor.close()
+    sys.exit()
+msg = "hola desde win10, fisica, server"
+coor.send(msg.encode('utf-8'))
 
     
   
