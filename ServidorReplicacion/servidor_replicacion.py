@@ -1,25 +1,50 @@
 import socket
 import sys
-from xmlrpc.client import ResponseError
 
-replicaSocket = socket.socket()
 host = '127.0.0.1' #192.168.1.118 (si se conecta con el server en una maquina virtual)
-port = 1233
+port = 12033
+BUFFERSIZE = 1024
 
-print("Esperando conexion")
-try:
-    replicaSocket.connect((host,port))
-except socket.error as e:
-    print(str(e))
+print("prueba del servidor")
+socket0 = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+socket0.bind((host,port))
+socket0.listen(6)
 
-Response = replicaSocket.recv(1024)
-print(Response.decode('utf-8'))
-while True:   
-    msg = input('Say something: ')
-    replicaSocket.send(msg.encode('utf-8'))
-    Response = replicaSocket.recv(1024)
-    print(Response.decode('utf-8'))
+coor, adr = socket0.accept()
 
-    if msg == 'exit':
-        replicaSocket.close()
+def replicarObjeto():
+    print("replicar")
+
+while True:
+    print(f"Conexion establecida por: {adr}")
+    data0 = coor.recv(BUFFERSIZE)
+    print(data0.decode('utf-8'))
+
+    if data0.decode('utf-8') == 'commit':
+        print("Preparandose para replicar") #Deberia llamar a un metodo para hacer el proceso
+        msg = "VOTE_COMMIT"
+        coor.send(msg.encode('utf-8'))
+
+    if data0.decode('utf-8') == 'abort':
+        print("Enviar mensaje de rechazar objeto") #envia el abort 
+        msg = "VOTE_ABORT"
+        coor.send(msg.encode('utf-8'))
+
+    #Como dice aqui es para salir del server
+    if data0.decode('utf-8')== 'salir':
+        coor.close()
         sys.exit()
+
+    msg = "hola desde win10, fisica, server"
+    coor.send(msg.encode('utf-8'))
+
+    
+  
+
+    
+
+"""
+def replicarObjeto():
+        print("replicando objeto")
+
+"""
